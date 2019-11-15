@@ -62,7 +62,12 @@ class ResilientPlayer(Player):
             self.extra_steps = self.default_extra_steps
 
     def move(self):
-        super().move()
+        if self.position is in self.board.chutes():
+            super().move() += self.extra_steps
+        else:
+            super().move()
+
+        self.n_steps += 1
 
     def get_position(self):
         return self.position
@@ -81,7 +86,10 @@ class LazyPlayer(Player):
             self.dropped_steps = self.default_dropped_steps
 
     def move(self):
-        super().move()
+        if self.position is in self.board.ladders():
+            super().move() -= self.dropped_steps
+        else:
+            super().move()
 
     def get_position(self):
         return self.position
