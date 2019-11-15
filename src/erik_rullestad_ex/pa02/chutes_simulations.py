@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-__author__ = 'Erik Rullestad'
-__email__ = 'erikrull@nmbu.no'
+__author__ = 'Erik Rullestad, Eirik Høyheim'
+__email__ = 'erikrull@nmbu.no, eirihoyh@nmbu.no'
 
 
 import random
