@@ -5,6 +5,7 @@ __email__ = 'erikrull@nmbu.no, havardmo@nmbu.no'
 
 
 import random
+from collections import Counter, defaultdict
 
 
 class Board():
@@ -26,12 +27,13 @@ class Board():
     def position_adjustment(self, position):
         if position in self.ladders:
             return self.ladders[position] - position
-        if position in self.chutes:
+        elif position in self.chutes:
             return position - self.chutes[position]
+        else:
+            return 0
 
 
 class Player():
-
     def __init__(self, board):
         self.board = board
         self.position = 0
@@ -62,12 +64,15 @@ class ResilientPlayer(Player):
             self.extra_steps = self.default_extra_steps
 
     def move(self):
-        if self.position in self.board.chutes():
-            super().move() += self.extra_steps
+        if self.get_position() in self.board.chutes.values():
+            die_roll = random.randint(1, 6)
+            self.position = self.get_position() + die_roll + self.extra_steps
+
+            self.board.position_adjustment(self.position)
+
+            self.n_steps += 1
         else:
             super().move()
-
-        self.n_steps += 1
 
     def get_position(self):
         return self.position
@@ -86,8 +91,18 @@ class LazyPlayer(Player):
             self.dropped_steps = self.default_dropped_steps
 
     def move(self):
-        if self.position in self.board.ladders():
-            super().move() -= self.dropped_steps
+        if self.get_position() in self.board.ladders.values():
+            die_roll = random.randit(1, 6)
+            if die_roll >= self.dropped_steps:
+                self.position = (
+                    self.get_position() + die_roll - self.dropped_steps
+                )
+
+                self.board.position_adjustment(self.position)
+
+                self.n_steps += 1
+            else:
+                pass
         else:
             super().move()
 
