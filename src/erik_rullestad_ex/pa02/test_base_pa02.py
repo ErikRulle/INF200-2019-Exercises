@@ -8,7 +8,7 @@ __author__ = 'Hans Ekkehard Plesser'
 __email__ = 'hans.ekkehard.plesser@nmbu.no'
 
 
-import chutes_simulations as cs
+import src.erik_rullestad_ex.pa02.chutes_simulations as cs
 import pytest
 
 class TestBoard:

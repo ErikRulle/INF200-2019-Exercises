@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-__author__ = 'Erik Rullestad, Eirik Høyheim'
-__email__ = 'erikrull@nmbu.no, eirihoyh@nmbu.no'
+__author__ = 'Erik Rullestad, Håvard Molversmyr'
+__email__ = 'erikrull@nmbu.no, havardmo@nmbu.no'
 
 
 import random
@@ -62,7 +62,7 @@ class ResilientPlayer(Player):
             self.extra_steps = self.default_extra_steps
 
     def move(self):
-        if self.position is in self.board.chutes():
+        if self.position in self.board.chutes():
             super().move() += self.extra_steps
         else:
             super().move()
@@ -86,7 +86,7 @@ class LazyPlayer(Player):
             self.dropped_steps = self.default_dropped_steps
 
     def move(self):
-        if self.position is in self.board.ladders():
+        if self.position in self.board.ladders():
             super().move() -= self.dropped_steps
         else:
             super().move()
