@@ -113,5 +113,47 @@ class LazyPlayer(Player):
         return self.n_steps
 
 
-class Simulation():
-    pass
+class Simulation:
+    def __init__(self, player_field=None, board=None,
+                 seed=None, randomize_players=True):
+        self.player_field = player_field
+        self.board = board
+        if self.board is None:
+            self.board = Board()
+        self.seed = seed
+        self.randomize_players = randomize_players
+        self.sim_res = []
+
+    def single_game(self):
+        player_list = []
+        for player_class in self.player_field:
+            player_list.append(player_class(self.board))
+
+        while True:
+            for player in player_list:
+                player.move()
+
+                if player.board.goal_reached(player.get_position()):
+                    nos = player.get_steps()
+                    wc = type(player).__name__
+                    return nos, wc
+
+    def run_simulation(self, sim_num):
+        for _ in range(sim_num):
+            self.sim_res.append(self.single_game())
+
+    def get_results(self):
+        return self.sim_res
+
+    def winners_per_type(self):
+        return dict(Counter(elem[1] for elem in self.get_results()))
+
+    def durations_per_type(self):
+        durations = defaultdict(list)
+        for value, key in self.get_results():
+            durations[key].append(value)
+        return dict(durations)
+
+    def players_per_type(self):
+        class_list = [cls.__name__ for cls in self.player_field]
+        return dict(Counter(class_list))
