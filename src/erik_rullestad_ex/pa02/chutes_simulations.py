@@ -92,7 +92,7 @@ class LazyPlayer(Player):
 
     def move(self):
         if self.get_position() in self.board.ladders.values():
-            die_roll = random.randit(1, 6)
+            die_roll = random.randint(1, 6)
             if die_roll >= self.dropped_steps:
                 self.position = (
                     self.get_position() + die_roll - self.dropped_steps
