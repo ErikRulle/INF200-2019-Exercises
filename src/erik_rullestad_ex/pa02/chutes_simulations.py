@@ -8,7 +8,7 @@ import random
 from collections import Counter, defaultdict
 
 
-class Board():
+class Board:
     default_ladders = {1: 40, 8: 10, 36: 52, 43: 62, 49: 79, 65: 82, 68: 85}
     default_chutes = {24: 5, 33: 3, 42: 30, 56: 37, 64: 27, 74: 12, 87: 70}
 
@@ -33,7 +33,7 @@ class Board():
             return 0
 
 
-class Player():
+class Player:
     def __init__(self, board):
         self.board = board
         self.position = 0
