@@ -55,6 +55,16 @@ class TestPlayer:
 
 
 class TestSimulation:
+    def test_single_game(self):
+        player_list = [cs.Player, cs.Player, cs.Player]
+        b = cs.Board()
+        play = cs.Simulation(board=b, player_field=player_list)
+        res = play.single_game()
+        assert not res[1] == 'LazyPlayer'
+        assert not res[1] == 'ResilientPlayer'
+        assert res[1] == 'Player'
+        assert isinstance(res[0], int)
+
     def test_winners_per_type(self):
         player_list = [cs.Player, cs.Player, cs.Player,
                        cs.LazyPlayer, cs.LazyPlayer, cs.ResilientPlayer]
