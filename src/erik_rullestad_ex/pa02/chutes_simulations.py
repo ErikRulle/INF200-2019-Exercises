@@ -43,7 +43,7 @@ class Player:
         die_roll = random.randint(1, 6)
         self.position = self.get_position() + die_roll
 
-        self.board.position_adjustment(self.position)
+        self.position += self.board.position_adjustment(self.position)
 
         self.n_steps += 1
 
@@ -68,7 +68,7 @@ class ResilientPlayer(Player):
             die_roll = random.randint(1, 6)
             self.position = self.get_position() + die_roll + self.extra_steps
 
-            self.board.position_adjustment(self.position)
+            self.position += self.board.position_adjustment(self.position)
 
             self.n_steps += 1
         else:
@@ -98,7 +98,7 @@ class LazyPlayer(Player):
                     self.get_position() + die_roll - self.dropped_steps
                 )
 
-                self.board.position_adjustment(self.position)
+                self.position += self.board.position_adjustment(self.position)
 
                 self.n_steps += 1
             else:
@@ -122,6 +122,10 @@ class Simulation:
             self.board = Board()
         self.seed = seed
         self.randomize_players = randomize_players
+        if self.randomize_players is True:
+            random.shuffle(self.player_field)
+        else:
+            pass
         self.sim_res = []
 
     def single_game(self):
