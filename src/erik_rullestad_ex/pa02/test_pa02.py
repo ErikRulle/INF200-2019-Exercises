@@ -111,6 +111,3 @@ class TestSimulation:
         assert list(res.values())[0] == 3
         assert list(res.values())[1] == 2
         assert list(res.values())[2] == 1
-
-
-
